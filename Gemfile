@@ -40,6 +40,13 @@ gem 'spring',        group: :development
 
 gem 'haml-rails'
 
+gem 'nokogiri'
+
 group :development, :test do
+  gem 'pry-byebug'
+  gem 'pry-nav'
+  gem 'pry-rails'
   gem 'rspec-rails'
+  gem 'guard-rspec'
+  gem 'guard-bundler'
 end
