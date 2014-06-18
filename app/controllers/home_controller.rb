@@ -14,7 +14,7 @@ class HomeController < ApplicationController
   private
 
   def index_rss
-    range = Rails.env.development? ? 2 : 60
+    range = Rails.env.development? ? 2 : 30
     date_range = ((range.days.ago).to_date..Date.yesterday)
 
     rss = RSS::Maker.make("atom") do |maker|
