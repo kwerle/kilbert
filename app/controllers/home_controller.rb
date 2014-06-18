@@ -14,7 +14,8 @@ class HomeController < ApplicationController
   private
 
   def index_rss
-    date_range = ((60.days.ago).to_date..Date.yesterday)
+    range = Rails.env.development? ? 2 : 60
+    date_range = ((range.days.ago).to_date..Date.yesterday)
 
     rss = RSS::Maker.make("atom") do |maker|
       maker.channel.author = "Really it's Scott Adams"
@@ -31,8 +32,8 @@ class HomeController < ApplicationController
             html_doc = Nokogiri::HTML(html)
             node = html_doc.css('.STR_Image img').first
             image_path = node.attr('src')
-            "http://www.dilbert.com/#{image_path}"
             logger.info("Got dilbert#{date.to_s}")
+            "http://www.dilbert.com/#{image_path}"
           end
           item.link = image_url
           item.title = "Dilbert #{date.to_s}"
