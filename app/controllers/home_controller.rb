@@ -25,12 +25,14 @@ class HomeController < ApplicationController
       date_range.to_a.each do |date|
         maker.items.new_item do |item|
           image_url = cache "dilbert#{date.to_s}" do
+            logger.info("Getting dilbert#{date.to_s}")
             path = "/strips/comic/#{date.to_s}/"
             html = Net::HTTP.get('www.dilbert.com', path)
             html_doc = Nokogiri::HTML(html)
             node = html_doc.css('.STR_Image img').first
             image_path = node.attr('src')
             "http://www.dilbert.com/#{image_path}"
+            logger.info("Got dilbert#{date.to_s}")
           end
           item.link = image_url
           item.title = "Dilbert #{date.to_s}"
