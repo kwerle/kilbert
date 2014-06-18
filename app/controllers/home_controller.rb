@@ -37,6 +37,7 @@ class HomeController < ApplicationController
           end
           item.link = image_url
           item.title = "Dilbert #{date.to_s}"
+          item.summary = "<img src='#{item.link}'></img>"
           item.updated = date.to_time
         end
       end
