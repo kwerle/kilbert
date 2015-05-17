@@ -18,7 +18,7 @@ class HomeController < ApplicationController
     date_range = ((range.days.ago).to_date..Date.yesterday)
 
     rss = RSS::Maker.make("atom") do |maker|
-      maker.channel.author = "Really it's Scott Adams"
+      maker.channel.author = "Really its Scott Adams"
       maker.channel.updated = date_range.last.to_time.to_s
       maker.channel.about = "http://www.dilbert.com/"
       maker.channel.title = "Uhhh..."
@@ -27,10 +27,11 @@ class HomeController < ApplicationController
         maker.items.new_item do |item|
           image_url = cache "dilbert#{date.to_s}" do
             logger.info("Getting dilbert#{date.to_s}")
-            path = "/strips/comic/#{date.to_s}/"
-            html = Net::HTTP.get('www.dilbert.com', path)
+            path = "/strip/#{date.to_s}/" # http://dilbert.com/strips/2015-05-15/
+            html = Net::HTTP.get('dilbert.com', path)
             html_doc = Nokogiri::HTML(html)
-            node = html_doc.css('.STR_Image img').first
+            # binding.pry
+            node = html_doc.css('img.img-comic').first
             image_path = node.attr('src')
             logger.info("Got dilbert#{date.to_s}")
             "http://www.dilbert.com/#{image_path}"
