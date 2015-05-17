@@ -30,11 +30,12 @@ class HomeController < ApplicationController
             path = "/strip/#{date.to_s}/" # http://dilbert.com/strips/2015-05-15/
             html = Net::HTTP.get('dilbert.com', path)
             html_doc = Nokogiri::HTML(html)
-            # binding.pry
             node = html_doc.css('img.img-comic').first
             image_path = node.attr('src')
             logger.info("Got dilbert#{date.to_s}")
-            "http://www.dilbert.com/#{image_path}"
+            # "http://www.dilbert.com/#{image_path}" # used to be
+            image_path
+            # binding.pry
           end
           item.link = image_url
           item.title = "Dilbert #{date.to_s}"
