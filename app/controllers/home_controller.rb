@@ -3,10 +3,11 @@ require 'net/http'
 
 class HomeController < ApplicationController
   def index
+
     respond_to do |format|
       format.html {}
       format.rss do
-        render text: index_rss
+        return render plain: index_rss
       end
     end # respond_to
   end # index
@@ -27,8 +28,9 @@ class HomeController < ApplicationController
         maker.items.new_item do |item|
           image_url = cache "dilbert#{date.to_s}" do
             logger.info("Getting dilbert#{date.to_s}")
-            path = "/strip/#{date.to_s}/" # http://dilbert.com/strips/2015-05-15/
-            html = Net::HTTP.get('dilbert.com', path)
+            url = "https://dilbert.com/strip/#{date.to_s}/" # http://dilbert.com/strips/2015-05-15/
+            uri = URI(url)
+            html = Net::HTTP.get(uri)
             html_doc = Nokogiri::HTML(html)
             node = html_doc.css('img.img-comic').first
             image_path = node.attr('src')
