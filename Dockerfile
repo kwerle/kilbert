@@ -1,4 +1,4 @@
-FROM ruby:2.5
+FROM ruby:2.6
 
 ENV EDITOR vi
 
@@ -9,7 +9,7 @@ WORKDIR /app/src
 
 COPY Gemfile* ./
 
-RUN bundle install
+RUN bundle install -j 6
 
 COPY . .
 
@@ -20,4 +20,4 @@ RUN rake assets:precompile
 
 EXPOSE 3000
 
-CMD bash -c 'rake db:migrate && rails s'
+CMD bash -c 'rake db:migrate && rails s -b 0.0.0.0'

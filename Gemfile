@@ -1,14 +1,14 @@
 source 'https://rubygems.org'
-ruby '2.5.3'
+# ruby '2.6.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails'
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3', group: [:development, :test]
+gem 'sqlite3'#, group: [:development, :test]
 gem 'pg', group: :production
 
 # Use SCSS for stylesheets
-gem 'sass-rails'
+gem 'sassc-rails'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier'
 # Use CoffeeScript for .js.coffee assets and views
