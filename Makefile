@@ -7,8 +7,6 @@ DOCKER_IMAGE_NAME=$(APPLICATION)
 DOCKER_IMAGE_VERSION=latest
 DOCKER_IMAGE=$(DOCKER_IMAGE_NAME):$(DOCKER_IMAGE_VERSION)
 DOCKER_BUILD_ARGS=--build-arg application_name=$(DOCKER_IMAGE_NAME)
-# LINKS=--link redis --link postgres:postgres
-# ENVS=-e REDIS_HOST=redis
 DEVELOPMENT_VOLUMES=-v $(PWD)/:/tmp/src/$(APPLICATION) -w /tmp/src/$(APPLICATION)
 
 default: image
