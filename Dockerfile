@@ -1,4 +1,4 @@
-FROM ruby:2.6.3
+FROM ruby:2.7
 
 ENV EDITOR vi
 
@@ -9,14 +9,14 @@ WORKDIR /app/src
 
 COPY Gemfile* ./
 
-RUN bundle install -j 6
+RUN bundle
 
 COPY . .
 
 ENV RAILS_SERVE_STATIC_FILES true
 ENV RAILS_LOG_TO_STDOUT true
 
-RUN rake assets:precompile
+# RUN rake assets:precompile
 
 EXPOSE 3000
 
