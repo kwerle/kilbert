@@ -9,7 +9,7 @@ WORKDIR /app/src
 
 COPY Gemfile* ./
 
-RUN bundle install -j 6
+RUN bundle
 
 COPY . .
 

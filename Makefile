@@ -33,8 +33,8 @@ shell: image
 guard: image
 	$(DOCKER) run --rm=true -it -e RAILS_ENV=test $(ENVS) $(DEVELOPMENT_VOLUMES) $(LINKS) $(DOCKER_IMAGE) guard
 
-test: image
+test: brakeman
 	$(DOCKER) run --rm=true -t -e RAILS_ENV=test $(DEVELOPMENT_VOLUMES) $(LINKS) $(DOCKER_IMAGE) rake
 
-jenkins_test: image
-	$(DOCKER) run --rm=true -t -e RAILS_ENV=test $(DEVELOPMENT_VOLUMES) $(LINKS) $(DOCKER_IMAGE) rake jenkins:test
+brakeman: image
+	$(DOCKER) run --rm -v "$(PWD)":/code presidentbeef/brakeman --color

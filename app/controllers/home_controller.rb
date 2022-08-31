@@ -2,12 +2,13 @@ require 'rss'
 require 'net/http'
 
 class HomeController < ApplicationController
-  def index
+  include ActionController::MimeResponds
 
+  def index
     respond_to do |format|
       format.html {}
       format.rss do
-        return render plain: index_rss
+        return render plain: index_rss.to_s
       end
     end # respond_to
   end # index
@@ -26,21 +27,21 @@ class HomeController < ApplicationController
 
       date_range.to_a.each do |date|
         maker.items.new_item do |item|
-          image_url = cache "dilbert#{date.to_s}" do
-            logger.info("Getting dilbert#{date.to_s}")
-            url = "https://dilbert.com/strip/#{date.to_s}/" # http://dilbert.com/strips/2015-05-15/
+          image_url = Rails.cache.fetch "dilbert#{date}" do
+            logger.info("Getting dilbert#{date}")
+            url = "https://dilbert.com/strip/#{date}/" # http://dilbert.com/strips/2015-05-15/
             uri = URI(url)
             html = Net::HTTP.get(uri)
             html_doc = Nokogiri::HTML(html)
             node = html_doc.css('img.img-comic').first
             image_path = node.attr('src')
-            logger.info("Got dilbert#{date.to_s}")
+            logger.info("Got dilbert#{date}")
             # "http://www.dilbert.com/#{image_path}" # used to be
             image_path
             # binding.pry
           end
           item.link = image_url
-          item.title = "Dilbert #{date.to_s}"
+          item.title = "Dilbert #{date}"
           item.summary = "<img src='#{item.link}'></img>"
           item.updated = date.to_time
         end
