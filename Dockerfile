@@ -1,4 +1,4 @@
-FROM ruby:2.6
+FROM ruby:2.7
 
 ENV EDITOR vi
 
@@ -16,7 +16,7 @@ COPY . .
 ENV RAILS_SERVE_STATIC_FILES true
 ENV RAILS_LOG_TO_STDOUT true
 
-RUN rake assets:precompile
+# RUN rake assets:precompile
 
 EXPOSE 3000
 
