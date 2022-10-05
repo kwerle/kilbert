@@ -1,7 +1,5 @@
 FROM ruby:2.7
 
-ENV EDITOR vi
-
 # Speed up install of gems
 RUN bundle config jobs 6
 
@@ -20,4 +18,4 @@ ENV RAILS_LOG_TO_STDOUT true
 
 EXPOSE 3000
 
-CMD bash -c 'rake db:migrate && rails s -b 0.0.0.0'
+CMD rails s -b 0.0.0.0
