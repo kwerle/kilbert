@@ -21,7 +21,7 @@ gem 'railties', '>= 6.1.6.1'
       # sprockets-rails (>= 2.0.0)
 
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3', '~> 1.4'
+gem 'pg'#, '~> 1.4'
 # Use Puma as the app server
 gem 'puma', '~> 5.0'
 # Use SCSS for stylesheets
