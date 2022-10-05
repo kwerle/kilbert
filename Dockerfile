@@ -1,4 +1,4 @@
-FROM ruby:2.7
+FROM ruby:3.1.2
 
 # Speed up install of gems
 RUN bundle config jobs 6
